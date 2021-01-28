@@ -1,0 +1,57 @@
+
+spring:
+  datasource:
+    name: mall_datasource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mall_medicine?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  application:
+    name: service-mall
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 100MB
+  mail:
+    # 邮件服务地址
+    host: smtp.163.com
+    # 端口
+    port: 465
+    # 编码格式
+    default-encoding: utf-8
+    # 用户名
+    username: 15576618671@163.com
+    # 授权码
+    password: 
+    # 其它参数
+    properties:
+      mail:
+        smtp:
+          # 如果是用 SSL 方式，需要配置如下属性
+          starttls:
+            enable: true
+            required: true
+        ssl:
+          enable: true
+
+server:
+  port: 10088
+  servlet:
+    context-path: /api
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+
+#  文件上传路径
+file:
+  upload:
+    dir: /root/imgs/
+    ip: 39.106.130.153
+
+
+

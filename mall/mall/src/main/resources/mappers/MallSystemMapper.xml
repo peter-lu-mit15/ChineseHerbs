@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nanxing.mall.model.dao.MallSystemMapper">
+  <resultMap id="BaseResultMap" type="com.nanxing.mall.model.pojo.MallSystem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sys_email" jdbcType="VARCHAR" property="sysEmail" />
+    <result column="sys_authorization" jdbcType="VARCHAR" property="sysAuthorization" />
+    <result column="boided_min" jdbcType="INTEGER" property="boidedMin" />
+    <result column="boided_max" jdbcType="INTEGER" property="boidedMax" />
+    <result column="grasp_count" jdbcType="INTEGER" property="graspCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sys_email, sys_authorization, boided_min, boided_max,grasp_count
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mall_system
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mall_system
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nanxing.mall.model.pojo.MallSystem">
+    insert into mall_system (id, sys_email, sys_authorization, 
+      boided_min, boided_max,grasp_count)
+    values (#{id,jdbcType=INTEGER}, #{sysEmail,jdbcType=VARCHAR}, #{sysAuthorization,jdbcType=VARCHAR}, 
+      #{boidedMin,jdbcType=INTEGER}, #{boidedMax,jdbcType=INTEGER},#{graspCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nanxing.mall.model.pojo.MallSystem">
+    insert into mall_system
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sysEmail != null">
+        sys_email,
+      </if>
+      <if test="sysAuthorization != null">
+        sys_authorization,
+      </if>
+      <if test="boidedMin != null">
+        boided_min,
+      </if>
+      <if test="boidedMax != null">
+        boided_max,
+      </if>
+      <if test="graspCount != null">
+        grasp_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sysEmail != null">
+        #{sysEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="sysAuthorization != null">
+        #{sysAuthorization,jdbcType=VARCHAR},
+      </if>
+      <if test="boidedMin != null">
+        #{boidedMin,jdbcType=INTEGER},
+      </if>
+      <if test="boidedMax != null">
+        #{boidedMax,jdbcType=INTEGER},
+      </if>
+      <if test="graspCount != null">
+        #{graspCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nanxing.mall.model.pojo.MallSystem">
+    update mall_system
+    <set>
+      <if test="sysEmail != null">
+        sys_email = #{sysEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="sysAuthorization != null">
+        sys_authorization = #{sysAuthorization,jdbcType=VARCHAR},
+      </if>
+      <if test="boidedMin != null">
+        boided_min = #{boidedMin,jdbcType=INTEGER},
+      </if>
+      <if test="boidedMax != null">
+        boided_max = #{boidedMax,jdbcType=INTEGER},
+      </if>
+      <if test="graspCount != null">
+        grasp_count = #{graspCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nanxing.mall.model.pojo.MallSystem">
+    update mall_system
+    set sys_email = #{sysEmail,jdbcType=VARCHAR},
+      sys_authorization = #{sysAuthorization,jdbcType=VARCHAR},
+      boided_min = #{boidedMin,jdbcType=INTEGER},
+      boided_max = #{boidedMax,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="topOne" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mall_system
+    limit 1
+  </select>
+</mapper>
