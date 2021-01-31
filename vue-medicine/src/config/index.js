@@ -18,11 +18,12 @@ export default {
    */
   baseUrl: {
     dev: '/api',
-    pro: 'http://39.106.130.153:10088/',
-    // pro: 'http://18.224.137.226:10088/',
+    // pro: 'http://39.106.130.153:10088/',
+    pro: 'http://3.14.66.207:10088/',
     // pro: 'http://localhost:10088/api/',
     defaultPrefix:"api/",
-    imgUrl:'http://39.106.130.153:10088/api/imgs/'
+    // imgUrl:'http://39.106.130.153:10088/api/imgs/'
+    imgUrl:'http://3.14.66.207:10088/api/imgs/'
     // imgUrl:'http://localhost:10088/api/imgs/'
   },
   /**

@@ -90,8 +90,8 @@
                     </div>
                     <div>
                       <InputNumber 
-                        :formatter="value => `${value}Formula`" 
-                        :parser="value => value.replace('Formula', '')"
+                        :formatter="value => `配方号:${value}`" 
+                        :parser="value => value.replace('配方号:', '')"
                         size="small" 
                         v-model="item.formula" 
                         :max="cartcount" :min="1"
@@ -166,7 +166,7 @@
       <Row :gutter="16">
           <Col span="24">
             <FormItem label="备注信息" >
-              <Input   v-model="order_remarks" placeholder="备注信息" />
+              <Input   v-model="order_remarks" placeholde------------------------------------r="备注信息" />
             </FormItem>
           </Col>
         </Row>
