@@ -608,6 +608,7 @@ export default {
 
   img {
     width: 90%;
+    max-width: 150px;
     max-height:82px ;
     margin: 10px 0px;
     border-radius: 5px;
