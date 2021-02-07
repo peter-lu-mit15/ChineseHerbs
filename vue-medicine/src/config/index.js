@@ -17,13 +17,14 @@ export default {
    * @description api请求基础路径
    */
   baseUrl: {
-    dev: '/api',
+    //dev: '/api',
+    dev: 'http://3.138.103.182:10088/',
     // pro: 'http://39.106.130.153:10088/',
-    pro: 'http://3.14.66.207:10088/',
+    pro: 'http://3.138.103.182:10088/',
     // pro: 'http://localhost:10088/api/',
     defaultPrefix:"api/",
     // imgUrl:'http://39.106.130.153:10088/api/imgs/'
-    imgUrl:'http://3.14.66.207:10088/api/imgs/'
+    imgUrl:'http://3.138.103.182:10088/api/imgs/'
     // imgUrl:'http://localhost:10088/api/imgs/'
   },
   /**
