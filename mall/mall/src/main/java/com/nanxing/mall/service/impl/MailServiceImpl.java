@@ -61,6 +61,7 @@ public class MailServiceImpl implements MailService {
     public void sendMailMessge(MailSendDto dto) {
         MallSystem mallSystem=systemMapper.topOne();
 
+        
         String from=mallSystem.getSysEmail();                           //发件邮箱
         String to=dto.getTo();                             //收件邮箱
         String subject=dto.getSubject();                        //邮件标题
@@ -69,6 +70,9 @@ public class MailServiceImpl implements MailService {
         int port=465;                              //smtp服务端口
         String password=mallSystem.getSysAuthorization();                       //授权码
         String sender="XX药店";                         //发件人
+        
+
+
 
         JavaMailSenderImpl jms = new JavaMailSenderImpl();
         jms.setHost(host);
@@ -78,9 +82,12 @@ public class MailServiceImpl implements MailService {
         jms.setDefaultEncoding("Utf-8");
         Properties properties = new Properties();
         properties.setProperty("mail.smtp.auth", "true");
-        properties.setProperty("mail.smtp.starttls.enable", "true");
-        properties.setProperty("mail.smtp.starttls.required", "true");
-        properties.setProperty("mail.smtp.ssl.enable", "true");
+        properties.setProperty("mail.smtp.connectiontimeout", "5000");
+        properties.setProperty("mail.smtp.timeout", "5000");
+        properties.setProperty("mail.smtp.writetimeout", "5000");
+        //properties.setProperty("mail.smtp.starttls.enable", "true");
+        //properties.setProperty("mail.smtp.starttls.required", "true");
+        //properties.setProperty("mail.smtp.ssl.enable", "true");
         jms.setJavaMailProperties(properties);
 
         try {
@@ -131,13 +138,14 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendMimeMessgeForHtml(String to, String subject, String content) {
+        
         MallSystem mallSystem=systemMapper.topOne();
 
-        String from=mallSystem.getSysEmail();                  //发件邮箱
-        String host="smtp.163.com";                           //smtp服务器
+        String from=mallSystem.getSysEmail();  ;                    //发件邮箱
+        String host="smtp.gmail.com";                          //smtp服务器
         int port=465;                                          //smtp服务端口
-        String password=mallSystem.getSysAuthorization();     //授权码
-        String sender="XX药店";                                //发件人
+        String password="SGR123456";                           //授权码
+        String sender="药店";                                 //发件人
 
         JavaMailSenderImpl jms = new JavaMailSenderImpl();
         jms.setHost(host);
@@ -150,8 +158,10 @@ public class MailServiceImpl implements MailService {
         properties.setProperty("mail.smtp.starttls.enable", "true");
         properties.setProperty("mail.smtp.starttls.required", "true");
         properties.setProperty("mail.smtp.ssl.enable", "true");
+        properties.setProperty("mail.smtp.connectiontimeout", "5000");
+        properties.setProperty("mail.smtp.timeout", "5000");
+        properties.setProperty("mail.smtp.writetimeout", "5000");
         jms.setJavaMailProperties(properties);
-
 
         try {
             MimeMessage mimeMessage = jms.createMimeMessage();
@@ -167,7 +177,7 @@ public class MailServiceImpl implements MailService {
             logger.error("发送简单邮件时发生异常!", e);
             throw new MallException(MallExceptionEnum.SEND_EMAIL_ERROR);
         }
-
+        
 
     }
 
