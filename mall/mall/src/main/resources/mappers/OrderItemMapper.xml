@@ -180,6 +180,7 @@
     <include refid="Base_Column_List"/>
     from mall_order_item
     where order_no = #{orderNo}
+    order by formula
   </select>
 
 </mapper>

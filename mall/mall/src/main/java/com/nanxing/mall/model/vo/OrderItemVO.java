@@ -17,6 +17,7 @@ public class OrderItemVO {
     private Integer quantity;
 
     private Integer totalPrice;
+
     private Integer handle;
 
     private String handleName;

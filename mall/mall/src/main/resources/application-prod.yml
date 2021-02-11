@@ -2,7 +2,7 @@
 spring:
   datasource:
     name: mall_datasource
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mall_medicine?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
@@ -21,13 +21,13 @@ spring:
     # 邮件服务地址
     host: smtp.163.com
     # 端口
-    port: 25
+    port: 465
     # 编码格式
     default-encoding: utf-8
     # 用户名
-    username: 15902072436@163.com
+    username: 15576618671@163.com
     # 授权码
-    password: UDKTGOHTZOBOTHVL
+    password: QSJOOYMUAGUPOMIM
     # 其它参数
     properties:
       mail:
@@ -50,10 +50,9 @@ mybatis:
 #  文件上传路径
 file:
   upload:
-    dir: D:\资料\tb\000\mall\mall\src\main\resources\static\imgs\
-    ip: 127.0.0.1
-    excel: D:\资料\tb\000\mall\mall\src\main\resources\static\excel\
-
+    dir: /root/imgs/
+    ip: 3.14.66.207
+#    ip: 39.106.130.153
 
 
 

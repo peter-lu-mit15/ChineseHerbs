@@ -2,9 +2,11 @@ package com.nanxing.mall.service;
 
 import com.github.pagehelper.PageInfo;
 import com.nanxing.mall.model.pojo.Product;
+import com.nanxing.mall.model.query.ProductEntity;
 import com.nanxing.mall.model.request.AddProductReq;
 import com.nanxing.mall.model.request.ProductListReq;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -28,5 +30,8 @@ public interface ProductService {
 
     PageInfo list(ProductListReq productListReq);
 
+
     List<String> getCharacterByPyin(String Pyin);
+
+    void importProduct(HttpServletRequest request,List<ProductEntity> list);
 }

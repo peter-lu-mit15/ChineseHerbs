@@ -103,3 +103,18 @@ export const batchCommand = (data) => {
 }
 
 
+//数据导出 
+export const getExcelProduct = () => {
+  return axios.request({
+    url: 'admin/exportExcel',
+    method: 'get',
+  })
+}
+//药材信息导入
+export const importExcel = (data) => {
+  return axios.request({
+    url: '/admin/importExcel',
+    method: 'post',
+    data
+  })
+}

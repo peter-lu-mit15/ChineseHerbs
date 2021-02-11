@@ -11,7 +11,7 @@
         <div slot="searcher">
           <section class="dnc-toolbar-wrap">
             <Row :gutter="16">
-              <Col span="16">
+              <Col span="10">
                 <Form inline @submit.native.prevent>
                   <FormItem>
                     <Input
@@ -27,7 +27,7 @@
                   </FormItem>
                 </Form>
               </Col>
-              <Col span="8" class="dnc-toolbar-btns">
+              <Col span="14" class="dnc-toolbar-btns">
                 <ButtonGroup class="mr3">
                   <!-- <Button
                     class="txt-danger"
@@ -38,6 +38,34 @@
 
                   <Button icon="md-refresh" title="刷新" @click="handleRefresh"></Button>
                 </ButtonGroup>
+                <Button
+                  icon="md-arrow-down"
+                  type="info"
+                  @click="getExcelURL"
+                  title="下载导入模板"
+                >下载导入模板</Button>
+                <Button
+                  icon="md-archive"
+                  type="success"
+                  @click="getExcelProduct"
+                  title="导出数据"
+                >导出数据</Button>
+
+                <form method="post" style="display:none" id="form1"  enctype="multipart/form-data" name="form1" >
+                  <input id="inputFile"  type="file" ref="file" style="display:none" accept=".xls,.xlsx" @change="getFile($event)">
+                </form>
+
+                <Button for="id" type="warning"  icon="md-aperture" @click="$refs.file.click()">导入数据</Button>
+                <!-- <input id="inputFile"  type="file" ref="file" style="display:none" accept=".xls,.xlsx" @change="getFile($event)"> -->
+                <!-- <Upload action="//jsonplaceholder.typicode.com/posts/">
+                  <Button
+                  icon="md-aperture"
+                  type="warning"
+                  @click="getExcelProduct"
+                  title="导入数据"
+                >导入数据</Button>
+                </Upload> -->
+                
                 <Button
                   icon="md-create"
                   type="primary"
@@ -279,10 +307,11 @@ import {
   deleteProduct,
   updateProduct,
   addFile,
-
   listByProduct,
   addVariant,
   deleteVariant,
+  getExcelProduct,
+  importExcel
 } from "@/api/goods";
 import config from "@/config";
 import { formateDate } from "@/libs/tools";
@@ -407,6 +436,7 @@ export default {
     };
   },
   computed: {
+    
     formTitle() {
       if (this.formModel.mode === "create") {
         return "创建药材";
@@ -427,6 +457,32 @@ export default {
     this.initdata();
   },
   methods: {
+    getFile(event){
+      console.log(event);
+      var file = event.target.files[0];
+      let formData = new FormData();
+      formData.append('file', file);
+      importExcel(formData).then(res=>{
+        console.log(res.data);
+        if(res.data.status==200){
+          this.$Message.success(res.data.msg);
+          this.initdata();
+          
+        }else{
+          this.$Message.error(res.data.msg);
+        }
+      });
+      document.getElementById("form1").reset();
+    },
+    getExcelProduct(){
+      getExcelProduct().then(res=>{
+        var filename=res.data.data;
+        window.location.href=this.$config.baseUrl.excelUrl+""+filename;
+      });
+    },
+    getExcelURL(){
+      window.location.href=this.$config.baseUrl.excelUrl+"medicine_import.xls";
+    },
     //格式话时间
     formateDate(p1, p2) {
       return formateDate(p1, p2);

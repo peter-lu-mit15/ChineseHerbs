@@ -129,6 +129,7 @@ public class MailController {
         String str="";
         for(int i=0;i<orderVo.getOrderItemVOList().size();i++){
             OrderItemVO item=orderVo.getOrderItemVOList().get(i);
+            html+="<span>formula#"+item.getFormula()+"</span>-";
             html+="<span>药材名称："+item.getProductName()+"</span>;";
             html+="<span>处理类型："+item.getHandleName()+"</span>;";
             html+="<span>数量："+item.getQuantity()+"</span>;";
@@ -136,7 +137,7 @@ public class MailController {
             html+="<span>小合计："+item.getTotalPrice()+"</span>";
             html+="<br><hr>";
         }
-        html+="</div><br>";
+        html+="</div><p>备注信息："+orderVo.getRemarks()+"</p><br>";
         html+="<p>总金额："+orderVo.getTotalPrice()+"</p>";
 
         return html;

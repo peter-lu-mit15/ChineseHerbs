@@ -4,8 +4,8 @@
         <!-- 设置日志文件的目录名称 -->
         <property name="logFileName" value="springBoot-mall"/>
         <!--输出日志存放位置-->
-<!--        <Property name="baseDir" value="/root/logs/${logFileName}" />-->
-        <Property name="baseDir" value="d:/logs/${logFileName}" />
+        <Property name="baseDir" value="/root/logs/${logFileName}" />
+<!--        <Property name="baseDir" value="d:/logs/${logFileName}" />-->
     </Properties>
 
     <Appenders>

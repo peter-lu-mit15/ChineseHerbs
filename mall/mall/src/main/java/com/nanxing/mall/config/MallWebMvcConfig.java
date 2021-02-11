@@ -22,6 +22,7 @@ public class MallWebMvcConfig implements WebMvcConfigurer {
 //        registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/static/admin/");
 
         registry.addResourceHandler("/imgs/**").addResourceLocations("file:"+ Constant.FILE_UPLOAD_DIR);
+        registry.addResourceHandler("/excel/**").addResourceLocations("file:"+ Constant.EXCEL_DIR);
 
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");

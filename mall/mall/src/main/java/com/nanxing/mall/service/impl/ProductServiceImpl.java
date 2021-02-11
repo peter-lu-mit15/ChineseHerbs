@@ -10,6 +10,7 @@ import com.nanxing.mall.model.dao.VariantMapper;
 import com.nanxing.mall.model.pojo.OrderItem;
 import com.nanxing.mall.model.pojo.Product;
 import com.nanxing.mall.model.pojo.Variant;
+import com.nanxing.mall.model.query.ProductEntity;
 import com.nanxing.mall.model.query.ProductListQuery;
 import com.nanxing.mall.model.request.AddProductReq;
 import com.nanxing.mall.model.request.ProductListReq;
@@ -19,12 +20,19 @@ import com.nanxing.mall.model.vo.ProductVO;
 import com.nanxing.mall.service.CategoryService;
 import com.nanxing.mall.service.ProductService;
 import com.nanxing.mall.service.VariantService;
+import io.netty.util.internal.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +49,8 @@ public class ProductServiceImpl implements ProductService {
     CategoryService categoryService;
     @Autowired
     VariantMapper variantMapper;
+    @Value("${file.upload.ip}")
+    String ip;
 
     @Override
     public void add(AddProductReq addProductReq){
@@ -169,5 +179,117 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<String> getCharacterByPyin(String pyin) {
         return productMapper.getCharacterByPyin(pyin);
+    }
+
+    private URI getHost(URI uri){
+        URI effectiveURI;
+        try {
+            effectiveURI=new URI(uri.getScheme(),uri.getUserInfo(),uri.getHost(),uri.getPort(),null,null,null);
+        } catch (URISyntaxException e) {
+            effectiveURI=null;
+        }
+        return effectiveURI;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void importProduct(HttpServletRequest request,List<ProductEntity> list) {
+        //TODO 保存数据库
+        for(int i=0;i<list.size();i++){
+            ProductEntity item=list.get(i);
+            if(StringUtil.isNullOrEmpty(item.getName()) || StringUtil.isNullOrEmpty(item.getPyName()) || StringUtils.isEmpty(item.getPrice())){
+                throw new MallException(MallExceptionEnum.FILE_CLOUN_ISNULL);
+            }
+            Product product=new Product();
+            BeanUtils.copyProperties(item,product);
+
+            Product productOld=productMapper.selectByName(product.getName());
+            if(productOld!=null){
+                throw new MallException(MallExceptionEnum.NAMES_EXISTED);
+            }
+            product.setStatus(1);
+            product.setCategoryId(1);
+            String url= null;
+            try {
+                url = getHost(new URI(request.getRequestURL()+""))+"/api/imgs/default.jpg";
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            product.setImage(url);
+            product.setCreateTime(new Date());
+            product.setUpdateTime(new Date());
+            int count=productMapper.insertSelective(product);
+            if (count==0) {
+                throw new MallException(MallExceptionEnum.CREATE_FAILED);
+            }
+
+            //插入处理类型
+            Integer productId = productMapper.selectByName(product.getName()).getId();
+            if(!StringUtil.isNullOrEmpty(item.getVariant1()) && !StringUtils.isEmpty(item.getVariantPrice1())){
+                Variant variantOld=variantMapper.selectByNameAndProductId(item.getVariant1(),productId);
+                if(variantOld==null) {
+                    Variant variant = new Variant();
+                    variant.setName(item.getVariant1());
+                    variant.setOrderNo(1);
+                    variant.setPrice(item.getVariantPrice1());
+                    variant.setProductId(productId);
+                    variant.setUpdateTime(new Date());
+                    variant.setCreateTime(new Date());
+                    variantMapper.insert(variant);
+                }
+            }
+            if(!StringUtil.isNullOrEmpty(item.getVariant2()) && !StringUtils.isEmpty(item.getVariantPrice2())){
+                Variant variantOld=variantMapper.selectByNameAndProductId(item.getVariant2(),productId);
+                if(variantOld==null){
+                    Variant variant=new Variant();
+                    variant.setName(item.getVariant2());
+                    variant.setOrderNo(1);
+                    variant.setPrice(item.getVariantPrice2());
+                    variant.setProductId(productId);
+                    variant.setUpdateTime(new Date());
+                    variant.setCreateTime(new Date());
+                    variantMapper.insert(variant);
+                }
+            }
+            if(!StringUtil.isNullOrEmpty(item.getVariant3()) && !StringUtils.isEmpty(item.getVariantPrice3())){
+                Variant variantOld=variantMapper.selectByNameAndProductId(item.getVariant3(),productId);
+                if(variantOld==null){
+                    Variant variant=new Variant();
+                    variant.setName(item.getVariant3());
+                    variant.setOrderNo(1);
+                    variant.setPrice(item.getVariantPrice3());
+                    variant.setProductId(productId);
+                    variant.setUpdateTime(new Date());
+                    variant.setCreateTime(new Date());
+                    variantMapper.insert(variant);
+                }
+            }
+            if(!StringUtil.isNullOrEmpty(item.getVariant4()) && !StringUtils.isEmpty(item.getVariantPrice4())){
+                Variant variantOld=variantMapper.selectByNameAndProductId(item.getVariant4(),productId);
+                if(variantOld==null) {
+                    Variant variant = new Variant();
+                    variant.setName(item.getVariant4());
+                    variant.setOrderNo(1);
+                    variant.setPrice(item.getVariantPrice4());
+                    variant.setProductId(productId);
+                    variant.setUpdateTime(new Date());
+                    variant.setCreateTime(new Date());
+                    variantMapper.insert(variant);
+                }
+            }
+            if(!StringUtil.isNullOrEmpty(item.getVariant5()) && !StringUtils.isEmpty(item.getVariantPrice5())){
+                Variant variantOld=variantMapper.selectByNameAndProductId(item.getVariant5(),productId);
+                if(variantOld==null) {
+                    Variant variant = new Variant();
+                    variant.setName(item.getVariant5());
+                    variant.setOrderNo(1);
+                    variant.setPrice(item.getVariantPrice5());
+                    variant.setProductId(productId);
+                    variant.setUpdateTime(new Date());
+                    variant.setCreateTime(new Date());
+                    variantMapper.insert(variant);
+                }
+            }
+        }
     }
 }

@@ -31,6 +31,8 @@ public enum MallExceptionEnum {
     SEND_EMAIL_ERROR(10023,"发送邮件时发生异常"),
     NOT_USER(100124,"用户不存在"),
     NAMES_EXISTED(100125,"请勿重复添加"),
+    FILE_IS_NULL(100126,"文件数据为空"),
+    FILE_CLOUN_ISNULL(100127,"文件列必填数据不能为空"),
     SYSTEM_ERROR(20000,"系统异常")
     ;
     /**

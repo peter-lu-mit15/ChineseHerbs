@@ -20,10 +20,16 @@ public class Constant {
     public static final String MALL_USER="mall_user";
 
     public static String FILE_UPLOAD_DIR;
+    public static String EXCEL_DIR;
 
     @Value("${file.upload.dir}")
     public void setFileUploadDir(String fileUploadDir){
         FILE_UPLOAD_DIR=fileUploadDir;
+    }
+
+    @Value("${file.upload.excel}")
+    public void setExcelDir(String fileUploadDir){
+        EXCEL_DIR=fileUploadDir;
     }
 
     public interface ProductListOrderBy{
