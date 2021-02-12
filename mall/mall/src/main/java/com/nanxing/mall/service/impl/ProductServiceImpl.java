@@ -194,6 +194,12 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void importProduct(HttpServletRequest request,List<ProductEntity> list) {
+        String host="";
+        try {
+            host=getHost(new URI(request.getRequestURL()+""))+"/api/imgs/";
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         //TODO 保存数据库
         for(int i=0;i<list.size();i++){
             ProductEntity item=list.get(i);
@@ -209,12 +215,13 @@ public class ProductServiceImpl implements ProductService {
             }
             product.setStatus(1);
             product.setCategoryId(1);
-            String url= null;
-            try {
-                url = getHost(new URI(request.getRequestURL()+""))+"/api/imgs/default.jpg";
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
+            String url= "";
+            if(StringUtil.isNullOrEmpty(item.getImage())){
+                url = host+"default.jpg";
+            }else{
+                url = host+""+item.getImage();
             }
+
             product.setImage(url);
             product.setCreateTime(new Date());
             product.setUpdateTime(new Date());

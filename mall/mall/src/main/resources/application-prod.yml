@@ -52,7 +52,10 @@ file:
   upload:
     dir: /root/imgs/
     ip: 3.14.66.207
+    excel: /root/excel/
 #    ip: 39.106.130.153
+
+
 
 
 
